@@ -1,4 +1,5 @@
 TITLE Init AwayFL Dev Enviroment
+cd %~dp0
 ECHO Clones and links all AwayFL modules into a directory "@awayfl", and all and AwayJS modules into a directory "@awayjs" at the same level as the awayfl-player directory
 PAUSE
 cd..
@@ -31,12 +32,21 @@ call yarn link
 call yarn link @awayjs/core
 cd..
 
+cd view
+git checkout dev
+call yarn
+call yarn link
+call yarn link @awayjs/core
+call yarn link @awayjs/stage
+cd..
+
 cd renderer
 git checkout dev
 call yarn
 call yarn link
 call yarn link @awayjs/core
 call yarn link @awayjs/stage
+call yarn link @awayjs/view
 cd..
 
 cd graphics
@@ -55,6 +65,7 @@ call yarn link
 call yarn link @awayjs/core
 call yarn link @awayjs/stage
 call yarn link @awayjs/renderer
+call yarn link @awayjs/view
 cd..
 
 cd scene
@@ -63,33 +74,10 @@ call yarn
 call yarn link
 call yarn link @awayjs/core
 call yarn link @awayjs/stage
-call yarn link @awayjs/renderer
-call yarn link @awayjs/graphics
-call yarn link @awayjs/materials
-cd..
-
-cd view
-git checkout dev
-call yarn
-call yarn link
-call yarn link @awayjs/core
-call yarn link @awayjs/stage
-call yarn link @awayjs/renderer
-call yarn link @awayjs/graphics
-call yarn link @awayjs/scene
-cd..
-
-cd swf-viewer
-git checkout dev
-call yarn
-call yarn link
-call yarn link @awayjs/core
-call yarn link @awayjs/stage
-call yarn link @awayjs/renderer
-call yarn link @awayjs/graphics
-call yarn link @awayjs/materials
-call yarn link @awayjs/scene
 call yarn link @awayjs/view
+call yarn link @awayjs/renderer
+call yarn link @awayjs/graphics
+call yarn link @awayjs/materials
 cd..
 
 cd..
@@ -132,6 +120,7 @@ cd..
 
 cd avm2
 call yarn
+call yarn link
 call yarn link @awayfl/swf-loader
 call yarn link @awayjs/core
 call yarn link @awayjs/graphics
@@ -141,6 +130,7 @@ cd..
 
 cd playerglobal
 call yarn
+call yarn link
 call yarn link @awayfl/swf-loader
 call yarn link @awayfl/avm2
 call yarn link @awayjs/core

@@ -15,6 +15,11 @@ git pull
 npm run tsc:build
 cd..
 
+cd view
+git pull
+npm run tsc:build
+cd..
+
 cd renderer
 git pull
 npm run tsc:build
@@ -31,11 +36,6 @@ npm run tsc:build
 cd..
 
 cd scene
-git pull
-npm run tsc:build
-cd..
-
-cd view
 git pull
 npm run tsc:build
 cd..
