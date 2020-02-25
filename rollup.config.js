@@ -10,6 +10,7 @@ module.exports = {
 		format: 'umd',
 		file: './bundle/awayfl-player.umd.js',
 		globals: {
+			'@awayfl/swf-loader': 'AwayflSwfLoader',
 			'@awayfl/avm1': 'AwayflAvm1',
 			'@awayfl/avm2': 'AwayflAvm2',
 			'@awayfl/playerglobal': 'AwayflPlayerglobal',
@@ -19,11 +20,11 @@ module.exports = {
 			'@awayjs/renderer': 'AwayjsRenderer',
 			'@awayjs/scene': 'AwayjsScene',
 			'@awayjs/stage': 'AwayjsStage',
-			'@awayjs/swf-viewer': 'AwayjsSwfViewer',
 			'@awayjs/view': 'AwayjsView',
 		},
 	},
 	external: [
+		'@awayfl/swf-loader',
 		'@awayfl/avm1',
 		'@awayfl/avm2',
 		'@awayfl/playerglobal',
@@ -33,7 +34,6 @@ module.exports = {
 		'@awayjs/renderer',
 		'@awayjs/scene',
 		'@awayjs/stage',
-		'@awayjs/swf-viewer',
 		'@awayjs/view',
 	],
 	plugins: [

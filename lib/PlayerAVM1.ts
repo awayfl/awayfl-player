@@ -1,4 +1,4 @@
-import { SWFParser, StageScaleMode, StageAlign, MovieClipSoundsManager, MovieClipSoundStream } from "@awayjs/swf-viewer";
+import { SWFParser, StageScaleMode, StageAlign, MovieClipSoundsManager, MovieClipSoundStream } from "@awayfl/swf-loader";
 import { AVMAwayStage, AVM1SceneGraphFactory, AVM1Globals, TraceLevel, AVM1ContextImpl, SecurityDomain, LoaderInfo, AVM1MovieClip } from "@awayfl/avm1";
 import { AssetLibrary, AudioManager, AssetEvent, LoaderEvent, URLLoaderEvent, URLRequest, ColorUtils, IAsset } from "@awayjs/core";
 import { MovieClip, Font, DefaultFontManager, FrameScriptManager } from "@awayjs/scene";

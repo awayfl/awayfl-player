@@ -1,4 +1,4 @@
-import { SWFParser } from "@awayjs/swf-viewer";
+import { SWFParser } from "@awayfl/swf-loader";
 import { createSecurityDomain, AVM2LoadLibrariesFlags } from "./avmLoader";
 
 import { initLink, Sprite, FlashSceneGraphFactory, Loader, Stage, LoaderContext, Event, URLRequest, SecurityDomain } from "@awayfl/playerglobal";

@@ -16,7 +16,7 @@
 import { BrowserSystemResourcesLoadingService } from "./BrowserSystemResourcesLoadingService";
 
 import { ABCFile, ABCCatalog } from "@awayfl/avm2";
-import { release, assert, PromiseWrapper } from "@awayjs/swf-viewer";
+import { release, assert, PromiseWrapper } from "@awayfl/swf-loader";
 import { SecurityDomain } from '@awayfl/playerglobal';
 
 export enum AVM2LoadLibrariesFlags {
