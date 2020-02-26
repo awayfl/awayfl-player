@@ -130,6 +130,7 @@ export class PlayerAVM1 {
 		MovieClipSoundStream.frameRate=this._parser.swfFile.frameRate;
 		this._stage.stageWidth=this._parser.swfFile.bounds.width/20;
 		this._stage.stageHeight=this._parser.swfFile.bounds.height/20;
+		this._avm1SceneGraphFactory.avm1Context.swfVersion=this._parser.swfFile.swfVersion;
 		this._stage.scaleMode=StageScaleMode.SHOW_ALL;
 		this._stage.align=StageAlign.TOP;
 		this._stage && this._stage.resizeCallback();
