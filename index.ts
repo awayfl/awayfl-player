@@ -1,6 +1,6 @@
 
 
-console.debug("AwayFL - AwayFL-Player - 0.1.5");
+console.debug("AwayFL - AwayFL-Player - 0.1.6");
 
 export {Player} from "./lib/Player";
 export {PlayerAVM1} from "./lib/PlayerAVM1";
