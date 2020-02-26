@@ -10,5 +10,8 @@
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist"
-  }
+  },
+  "files": [
+    "./index.ts"
+  ]
 }
