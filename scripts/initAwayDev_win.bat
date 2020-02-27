@@ -102,6 +102,7 @@ git checkout dev
 call yarn
 call yarn link
 call yarn link @awayjs/core
+call yarn link @awayjs/view
 call yarn link @awayjs/stage
 call yarn link @awayjs/renderer
 call yarn link @awayjs/graphics
@@ -113,39 +114,43 @@ ECHO [32m Checkout and link "@awayfl/avm1" module[0m
 cd avm1
 call yarn
 call yarn link
-call yarn link @awayfl/swf-loader
 call yarn link @awayjs/core
+call yarn link @awayjs/view
 call yarn link @awayjs/stage
 call yarn link @awayjs/renderer
 call yarn link @awayjs/graphics
 call yarn link @awayjs/materials
 call yarn link @awayjs/scene
-call yarn link @awayjs/view
+call yarn link @awayfl/swf-loader
 cd..
 
 ECHO [32m Checkout and link "@awayfl/avm2" module[0m
 cd avm2
 call yarn
 call yarn link
-call yarn link @awayfl/swf-loader
 call yarn link @awayjs/core
+call yarn link @awayjs/view
+call yarn link @awayjs/renderer
 call yarn link @awayjs/graphics
+call yarn link @awayjs/materials
 call yarn link @awayjs/scene
 call yarn link @awayjs/stage
+call yarn link @awayfl/swf-loader
 cd..
 
 ECHO [32m Checkout and link "@awayfl/playerglobal" module[0m
 cd playerglobal
 call yarn
 call yarn link
-call yarn link @awayfl/swf-loader
-call yarn link @awayfl/avm2
 call yarn link @awayjs/core
+call yarn link @awayjs/stage
+call yarn link @awayjs/view
+call yarn link @awayjs/renderer
 call yarn link @awayjs/graphics
 call yarn link @awayjs/materials
 call yarn link @awayjs/scene
-call yarn link @awayjs/stage
-call yarn link @awayjs/view
+call yarn link @awayfl/swf-loader
+call yarn link @awayfl/avm2
 cd..
 
 ECHO [32m Checkout and link "awayfl-player" module[0m
@@ -153,11 +158,16 @@ cd..
 cd awayfl-player
 call yarn
 call yarn link
+call yarn link @awayjs/core
+call yarn link @awayjs/stage
+call yarn link @awayjs/view
+call yarn link @awayjs/renderer
+call yarn link @awayjs/graphics
+call yarn link @awayjs/materials
+call yarn link @awayjs/scene
 call yarn link @awayfl/swf-loader
 call yarn link @awayfl/avm1
 call yarn link @awayfl/avm2
 call yarn link @awayfl/playerglobal
-call yarn link @awayjs/core
-call yarn link @awayjs/scene
 
 PAUSE
