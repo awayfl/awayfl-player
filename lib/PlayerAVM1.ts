@@ -35,6 +35,12 @@ export class PlayerAVM1 {
 		this._onLoadErrorFontsDelegate = (event: URLLoaderEvent) => this._onLoadFontsError(event);
 		window.addEventListener("resize", (e)=>this._stage.resizeCallback(e));
 	}
+	public registerCustomExitFrameCallback(callback:Function):any {
+		return this._stage.registerCustomExitFrameCallback(callback);
+	}
+	public screenshot(callback:Function):any {
+		return this._stage.screenshot(callback);
+	}
 	public get avm1SceneGraphFactory():any {
 		return this._avm1SceneGraphFactory;
 	}
@@ -124,7 +130,8 @@ export class PlayerAVM1 {
 	private _onLoadCompleteDelegate: (event: LoaderEvent) => void;
 	public onLoadComplete(event) {
 		
-		console.log("loaded a SWFFile", this._parser.swfFile);
+		//console.log("loaded a SWFFile", this._parser.swfFile);
+		console.debug("FP-VERSION", this._parser.swfFile.fpVersion);
 		this._stage.color=ColorUtils.f32_RGBA_To_f32_ARGB(this._parser.swfFile.backgroundColor);
 		this._stage.frameRate=this._parser.swfFile.frameRate;
 		MovieClipSoundStream.frameRate=this._parser.swfFile.frameRate;
