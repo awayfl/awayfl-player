@@ -29,9 +29,36 @@
     fs "0.0.1-security"
     tslib "^1.9.0"
 
+"@awayjs/graphics@^0.4.0":
+  version "0.4.23"
+  resolved "https://registry.yarnpkg.com/@awayjs/graphics/-/graphics-0.4.23.tgz#197b86367432178dbdaf843925b93a874c5080e8"
+  integrity sha512-P8c/s/ozuimOzcWSxgEAc8/uyxJ4ZmLQ8689o7wnVlOMILQqzOpO0pzElaX+ARNR6bOPqBb6rGkORAwUXIXBTQ==
+  dependencies:
+    tess2 "^1.0.0"
+
+"@awayjs/materials@^0.5.0":
+  version "0.5.8"
+  resolved "https://registry.yarnpkg.com/@awayjs/materials/-/materials-0.5.8.tgz#a24a6c64717d86aa6707a4e54301616ee364f849"
+  integrity sha512-eWdnkEkLhV5VJXewxM0rDSsI0Wk94l6YRiWcKQjWpODHRFpkn3i05wqLTOIhM0xtOE3sbASP1tCFPf6nQnlDLQ==
+
+"@awayjs/renderer@^0.10.0":
+  version "0.10.11"
+  resolved "https://registry.yarnpkg.com/@awayjs/renderer/-/renderer-0.10.11.tgz#85a661ee00610592274fd1c6d71eb91e6d2c71b3"
+  integrity sha512-/sXbGPKUuivedlfC8myKKGtdt51t9x0HnRqrO1+m7qKUaAwVdhFD37u9FBRw1y/aznpjcPLiEMt2r0KQx+FyWw==
+
 "@awayjs/scene@^0.12.0":
   version "0.12.62"
   resolved "https://registry.yarnpkg.com/@awayjs/scene/-/scene-0.12.62.tgz#ac62601ead206ecf26913326cf1d18ad05d78366"
+
+"@awayjs/stage@^0.10.0":
+  version "0.10.22"
+  resolved "https://registry.yarnpkg.com/@awayjs/stage/-/stage-0.10.22.tgz#d7fdfb7bdbf6586f27e5cc7003692dc4d92a5d5c"
+  integrity sha512-CtD108C7hPkFU49/GexYP5kA640eSW0iS+cxWujaLlclUZfYwqwoVL5yxJsz14lR0TC7vt1fYrnYCMkHPWNWRQ==
+
+"@awayjs/view@^0.5.0":
+  version "0.5.13"
+  resolved "https://registry.yarnpkg.com/@awayjs/view/-/view-0.5.13.tgz#3546cedfa0f7e2be9b6967510b411587334bc74b"
+  integrity sha512-9n9iFxLDjyi1r7l/HnGpxWVlAOb82T593uqZnC98Ip7RIFRtH27UoxaXQsTiwp+m/mBW3WP/A+0KXdndscgrvg==
 
 "@types/acorn@^4.0.3":
   version "4.0.5"
@@ -258,6 +285,11 @@ source-map@~0.6.1:
 sourcemap-codec@^1.4.1, sourcemap-codec@^1.4.4:
   version "1.4.8"
   resolved "https://registry.yarnpkg.com/sourcemap-codec/-/sourcemap-codec-1.4.8.tgz#ea804bd94857402e6992d05a38ef1ae35a9ab4c4"
+
+tess2@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/tess2/-/tess2-1.0.0.tgz#2e2eb21822294061b83d46cbaefdd09d86ddf593"
+  integrity sha1-Li6yGCIpQGG4PUbLrv3QnYbd9ZM=
 
 time-zone@^1.0.0:
   version "1.0.0"
