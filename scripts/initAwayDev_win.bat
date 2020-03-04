@@ -58,6 +58,7 @@ call yarn
 call yarn link
 call yarn link @awayjs/core
 call yarn link @awayjs/stage
+call yarn link @awayjs/view
 call yarn link @awayjs/renderer
 cd..
 
