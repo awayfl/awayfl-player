@@ -18,6 +18,12 @@ git pull | findstr /C:"Already up to date."
 IF %errorlevel%==1 call npm run tsc:build
 cd..
 
+ECHO [32m Pull and build @awayjs/view[0m
+cd view
+git pull | findstr /C:"Already up to date."
+IF %errorlevel%==1 call npm run tsc:build
+cd..
+
 ECHO [32m Pull and build @awayjs/renderer[0m
 cd renderer
 git pull | findstr /C:"Already up to date."
@@ -38,12 +44,6 @@ cd..
 
 ECHO [32m Pull and build @awayjs/scene[0m
 cd scene
-git pull | findstr /C:"Already up to date."
-IF %errorlevel%==1 call npm run tsc:build
-cd..
-
-ECHO [32m Pull and build @awayjs/view[0m
-cd view
 git pull | findstr /C:"Already up to date."
 IF %errorlevel%==1 call npm run tsc:build
 cd..
