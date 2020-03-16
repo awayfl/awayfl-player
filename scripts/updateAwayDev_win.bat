@@ -48,7 +48,7 @@ EXIT /b
 ECHO [32m Pull and build @%1/%2[0m
 cd %2
 for /f "tokens=* USEBACKQ" %%g in (`git rev-parse --abbrev-ref HEAD`) do (set "modulebranch=%%g")
-IF %modulebranch%==%branch% (
+IF NOT %modulebranch%==%branch% (
     git checkout %branch% | findstr "Your branch is up to date"
     IF %errorlevel%==1 call git pull
     call npm run tsc:build
