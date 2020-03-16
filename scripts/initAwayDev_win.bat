@@ -113,6 +113,7 @@ cd..
 
 ECHO [32m Checkout and link "@awayfl/avm1" module[0m
 cd avm1
+git checkout dev
 call yarn
 call yarn link
 call yarn link @awayjs/core
@@ -127,6 +128,7 @@ cd..
 
 ECHO [32m Checkout and link "@awayfl/avm2" module[0m
 cd avm2
+git checkout dev
 call yarn
 call yarn link
 call yarn link @awayjs/core
@@ -141,6 +143,7 @@ cd..
 
 ECHO [32m Checkout and link "@awayfl/playerglobal" module[0m
 cd playerglobal
+git checkout dev
 call yarn
 call yarn link
 call yarn link @awayjs/core
@@ -157,6 +160,7 @@ cd..
 ECHO [32m Checkout and link "awayfl-player" module[0m
 cd..
 cd awayfl-player
+git checkout dev
 call yarn
 call yarn link
 call yarn link @awayjs/core
