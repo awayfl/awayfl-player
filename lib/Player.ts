@@ -82,7 +82,8 @@ export class Player {
 	private _onLoadCompleteDelegate: (event: Event) => void;
 	public onLoadComplete(event) {
 		
-		console.log("loaded a SWFFile", this._parser.swfFile);
+        console.log("loaded a SWFFile", this._parser.swfFile);
+        (<any>this._sec).swfVersion=this._parser.swfFile.swfVersion;
 		this._stage.color=ColorUtils.f32_RGBA_To_f32_ARGB(this._parser.swfFile.backgroundColor);
 		this._stage.frameRate=this._parser.swfFile.frameRate;
 		this._stage.stageWidth=this._parser.swfFile.bounds.width/20;
