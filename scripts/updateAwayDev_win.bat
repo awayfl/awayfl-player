@@ -11,34 +11,34 @@ cd..
 cd..
 cd @awayjs
 
-call :process_module awayjs core
+call :process_module awayjs core || GOTO handle_fail
 
-call :process_module awayjs stage
+call :process_module awayjs stage || GOTO handle_fail
 
-call :process_module awayjs view
+call :process_module awayjs view || GOTO handle_fail
 
-call :process_module awayjs renderer
+call :process_module awayjs renderer || GOTO handle_fail
 
-call :process_module awayjs graphics
+call :process_module awayjs graphics || GOTO handle_fail
 
-call :process_module awayjs materials
+call :process_module awayjs materials || GOTO handle_fail
 
-call :process_module awayjs scene
+call :process_module awayjs scene || GOTO handle_fail
 
 cd..
 cd @awayfl
 
-call :process_module awayfl swf-loader
+call :process_module awayfl swf-loader || GOTO handle_fail
 
-call :process_module awayfl avm1
+call :process_module awayfl avm1 || GOTO handle_fail
 
-call :process_module awayfl avm2
+call :process_module awayfl avm2 || GOTO handle_fail
 
-call :process_module awayfl playerglobal
+call :process_module awayfl playerglobal || GOTO handle_fail
 
 cd..
 
-call :process_module awayfl awayfl-player
+call :process_module awayfl awayfl-player || GOTO handle_fail
 
 PAUSE
 
@@ -48,14 +48,20 @@ EXIT /b
 ECHO [32m Pull and build @%1/%2[0m
 cd %2
 for /f "tokens=* USEBACKQ" %%g in (`git rev-parse --abbrev-ref HEAD`) do (set "modulebranch=%%g")
+
 IF NOT %modulebranch%==%branch% (
-    git checkout %branch% | findstr "Your branch is up to date"
-    IF %errorlevel%==1 call git pull
+    call git pull || EXIT /b 1
+    call git checkout %branch% || EXIT /b 1
     call npm run tsc:build
 ) ELSE (
-    git pull | findstr /C:"Already up to date."
-    IF %errorlevel%==1 call npm run tsc:build
+    call git pull | findstr /C:"Already up to date." || call npm run tsc:build
 )
 cd..
 
+EXIT /b
+
+:handle_fail
+EXIT /b 1
+
+:end
 EXIT /b
