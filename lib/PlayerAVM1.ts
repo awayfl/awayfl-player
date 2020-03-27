@@ -109,21 +109,6 @@ export class PlayerAVM1 {
 					this._stage.getLayer(0).addChild(<MovieClip>asset);
 					
 				(<AVM1MovieClip>(<MovieClip>asset).adapter).initAdapter();
-				if(this._skipFrames>0){
-					FrameScriptManager.execute_queue();
-					if(this._skipFramesCallback){
-						AudioManager.setVolume(0);
-						this._skipFramesCallback(()=>{
-							AudioManager.setVolume(1);
-							(<MovieClip>asset).currentFrameIndex=this._skipFrames;
-							(<MovieClip>asset).play();
-						})
-					}
-					else{
-						(<MovieClip>asset).currentFrameIndex=this._skipFrames;
-						(<MovieClip>asset).play();
-					}
-				}
 			}
 		}				
 	}
@@ -147,6 +132,22 @@ export class PlayerAVM1 {
 		
 		if(window["hidePokiProgressBar"])
 			window["hidePokiProgressBar"]();
+			
+		if(this._skipFrames>0){
+			FrameScriptManager.execute_queue();
+			if(this._skipFramesCallback){
+				AudioManager.setVolume(0);
+				this._skipFramesCallback(()=>{
+					AudioManager.setVolume(1);
+					(<MovieClip>this._stage.getLayer(0).getChildAt(0)).currentFrameIndex=this._skipFrames;
+					(<MovieClip>this._stage.getLayer(0).getChildAt(0)).play();
+				})
+			}
+			else{
+				(<MovieClip>this._stage.getLayer(0).getChildAt(0)).currentFrameIndex=this._skipFrames;
+				(<MovieClip>this._stage.getLayer(0).getChildAt(0)).play();
+			}
+		}
 		this._stage.rendererStageContainer.style.visibility="visible";
 	}
 }
