@@ -4,8 +4,8 @@ import { PlayerGlobal } from '@awayfl/playerglobal';
 
 
 export class AVM2Player extends AVMStage {
-	constructor() {
-		super();
+	constructor(gameConfig) {
+		super(gameConfig);
 		this.registerAVMStageHandler(new AVM2Handler(new PlayerGlobal()));
 	}
 }

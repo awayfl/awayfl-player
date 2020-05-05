@@ -21,10 +21,10 @@ function fullSerializer(obj: any) {
 }
 
 export class AVMPlayer extends AVMStage {
-	constructor() {
-		super();
+	constructor(gameConfig) {
+		super(gameConfig);
 		this.registerAVMStageHandler(new AVM1Handler());
-		this.registerAVMStageHandler(new AVM2Handler(new PlayerGlobal()));
+		this.registerAVMStageHandler(new AVM2Handler(new PlayerGlobal(), gameConfig.forceJIT));
 		this.addEventListener(AVMEvent.AVM_COMPLETE, (event: AVMEvent) => this.onAVMAvailable(event));
 
 		
