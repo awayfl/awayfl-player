@@ -2,7 +2,7 @@ import { AVMStage, AVMEvent, AVMVERSION,release } from "@awayfl/swf-loader";
 import { AVMDebug } from "./AVMDebugInterface";
 
 import { AVM1Handler } from '@awayfl/avm1';
-import { AVM2Handler, BOX2D_PREFERENCE } from '@awayfl/avm2';
+import { AVM2Handler } from '@awayfl/avm2';
 import { PlayerGlobal } from "@awayfl/playerglobal";
 
 
@@ -12,10 +12,6 @@ export class AVMPlayer extends AVMStage {
 		this.registerAVMStageHandler(new AVM1Handler());
 		this.registerAVMStageHandler(new AVM2Handler(new PlayerGlobal(), gameConfig.forceJIT));
 		this.addEventListener(AVMEvent.AVM_COMPLETE, (event: AVMEvent) => this.onAVMAvailable(event));
-
-		if(gameConfig.box2dVersion) {
-			BOX2D_PREFERENCE.version = gameConfig.box2dVersion;
-		}
 
 		// export player api
 		if(!release) {
