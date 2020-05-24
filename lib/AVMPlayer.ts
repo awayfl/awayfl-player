@@ -1,4 +1,4 @@
-import { AVMStage, AVMEvent, AVMVERSION,release } from "@awayfl/swf-loader";
+import { AVMStage, AVMEvent, AVMVERSION, release } from "@awayfl/swf-loader";
 import { AVMDebug } from "./AVMDebugInterface";
 
 import { AVM1Handler } from '@awayfl/avm1';
@@ -14,9 +14,9 @@ export class AVMPlayer extends AVMStage {
 		this.addEventListener(AVMEvent.AVM_COMPLETE, (event: AVMEvent) => this.onAVMAvailable(event));
 
 		// export player api
-		if(!release) {
+		//if(!release) {
 			new AVMDebug(this);
-		}
+		//}
 	}
 
 	protected onAVMAvailable(event: AVMEvent) {
