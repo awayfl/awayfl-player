@@ -1,6 +1,6 @@
 
 import { AVMStage,  registerDebugMethod } from "@awayfl/swf-loader";
-import { DisplayObject } from '../../@awayjs/scene/dist';
+import { DisplayObject } from '@awayjs/scene';
 
 function fullSerializer(obj: any) {
 	const clone = Object.assign({}, obj);
