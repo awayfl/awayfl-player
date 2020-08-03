@@ -10,7 +10,7 @@ export class AVMPlayer extends AVMStage {
 	constructor(gameConfig) {
 		super(gameConfig);
 		this.registerAVMStageHandler(new AVM1Handler());
-		this.registerAVMStageHandler(new AVM2Handler(new PlayerGlobal(), gameConfig.forceJIT));
+		this.registerAVMStageHandler(new AVM2Handler(new PlayerGlobal()));
 		this.addEventListener(AVMEvent.AVM_COMPLETE, (event: AVMEvent) => this.onAVMAvailable(event));
 
 		// export player api
