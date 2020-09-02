@@ -1,6 +1,8 @@
 
 import { AVMStage,  registerDebugMethod } from "@awayfl/swf-loader";
 import { DisplayObject } from '@awayjs/scene';
+import { PickGroup } from "@awayjs/view";
+import { Point } from '@awayjs/core';
 
 function fullSerializer(obj: any) {
 	const clone = Object.assign({}, obj);
@@ -49,9 +51,19 @@ export class AVMDebug {
         registerDebugMethod(this._getSceneTree.bind(this), { 
             name: "getNodeTree", 
             description:"Get sceen tree of app", 
-            declaration: [{name:"return", type:"object"}, {name:"flat", type: "boolean"}, {name:"from", type:"number"}] 
+            declaration: [
+                {name:"return", type:"object"}, 
+                {name:"flat", type:"boolean"}, 
+                {name:"from", type:"number"},
+                {name:"rect", type:"object"}
+            ] 
         });
-        
+
+        registerDebugMethod(this._getStageCanvas.bind(this), { 
+            name: "getStageCanvas", 
+            description:"Get canvas attahed to stage", 
+            declaration: [] 
+        });
 
         //@ts-ignore
         window._AWAY_DEBUG_PLAYER_ = this;
@@ -74,15 +86,41 @@ export class AVMDebug {
         return node;
     }
 
+    private _getStageCanvas() {
+        return this.player.scene.view.stage.container;
+    }
+
     private _dirObjectByIds(ids: number[]){    
         console.dir(this._selectNode(ids));
     }
 
-    private _traverse(node: any, req = false) {
+    private _getNodeBounds(node: DisplayObject) {
+        const view = this.player.scene.view;
+        const stage = view.stage;
+
+        const box = PickGroup.getInstance(view).getBoundsPicker(node.partition).getBoxBounds(this.player);
+        if (!box) {
+            return null;
+        }
+
+        const sx = view.width / this.player.stageWidth;
+        const sy = view.height / this.player.stageHeight;
+
+        //console.log("DisplayObject:getRect not yet implemented");FromBounds
+        return  {
+            x: box.x * sx, 
+            y: box.y * sy, 
+            width: box.width * sx, 
+            height: box.height * sy
+        };
+    }
+
+    private _traverse(node: any, req = false, rect = false) {
 
         const ret =  {
             parentId: node.parent ? node.parent.id : -1,
-            children: undefined
+            children: null,
+            rect: null,
         }
 
         for(let name of OBJECT_FIELDS) {
@@ -92,6 +130,10 @@ export class AVMDebug {
             } else{
                 ret[name] = node[name];
             }
+        }
+
+        if(rect) {
+            ret.rect = this._getNodeBounds(node)
         }
 
         if(req) {
@@ -113,7 +155,7 @@ export class AVMDebug {
         Object.assign(node, object);
     }
 
-    private _getSceneTree(flat = false, from = 0) {
+    private _getSceneTree(flat = false, from = 0, rect = false) {
         const tree = [];
         const q: any[] = this.player._children.slice();
 
@@ -124,7 +166,7 @@ export class AVMDebug {
                 break;
             }
 
-            tree.push(this._traverse(node, !flat));
+            tree.push(this._traverse(node, !flat, rect));
             
             if(flat){
                 q.push.apply(q, node._children.reverse());
