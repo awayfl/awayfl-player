@@ -1,6 +1,6 @@
 {
   "name": "@awayfl/awayfl-player",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "description": "Flash Player emulator for executing SWF files (published for FP versions 6 and up) in javascript",
   "main": "bundle/awayfl-player.umd.js",
   "module": "dist/index.js",
