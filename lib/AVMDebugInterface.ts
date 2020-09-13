@@ -115,7 +115,7 @@ export class AVMDebug {
         };
     }
 
-    private _traverse(node: any, req = false, rect = false) {
+    private _traverse(node: any, req = false, rect = false, visibleOnly = false) {
 
         const ret =  {
             parentId: node.parent ? node.parent.id : -1,
@@ -140,7 +140,13 @@ export class AVMDebug {
         }
 
         if(req) {
-            ret.children = node._children.map((e) => this._traverse(e, req, rect));
+
+            ret.children = [];
+            for(let c of node._children) {
+                if(visibleOnly && c.visible || !visibleOnly){
+                    ret.children.push(this._traverse(c, req, rect, visibleOnly));
+                }
+            }
         }
 
         return ret;
@@ -158,7 +164,26 @@ export class AVMDebug {
         Object.assign(node, object);
     }
 
-    private _getSceneTree(flat = false, from = 0, rect = false) {
+    private _getSceneTree(params: {flat?: boolean, from?: number, rect?: boolean, visibleOnly?: boolean})
+    private _getSceneTree(flat?: boolean, from?: number, rect?: boolean)
+    
+    private _getSceneTree(params: any, fromArg?: number, rectArg?: boolean) {
+        if(typeof params !== 'object') {
+            params = {
+                flat: params || false,
+                from: fromArg || 0,
+                rect: rectArg || false,
+                visibleOnly: false
+            }
+        }
+
+        const {
+            flat = false, 
+            from = 0, 
+            rect = false,
+            visibleOnly = false
+        } = params;
+
         const tree = [];
         const q: any[] = this.player._children.slice();
 
@@ -169,10 +194,10 @@ export class AVMDebug {
                 break;
             }
 
-            tree.push(this._traverse(node, !flat, rect));
+            tree.push(this._traverse(node, !flat, rect, visibleOnly));
             
-            if(flat){
-                q.push.apply(q, node._children.reverse());
+            if(flat) {
+                q.push.apply(q, node._children.reverse().filter(e => (e.visible && visibleOnly || !visibleOnly)));
             }
         }
 
