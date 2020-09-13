@@ -132,12 +132,15 @@ export class AVMDebug {
             }
         }
 
+        ret["globalVisible"] = 
+            node.parent ? (node.parent.visible && node.visible) : node.visible;
+
         if(rect) {
             ret.rect = this._getNodeBounds(node)
         }
 
         if(req) {
-            ret.children = node._children.map((e) => this._traverse(e, req));
+            ret.children = node._children.map((e) => this._traverse(e, req, rect));
         }
 
         return ret;
