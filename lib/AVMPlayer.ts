@@ -7,6 +7,7 @@ import { PlayerGlobal } from "@awayfl/playerglobal";
 
 
 export class AVMPlayer extends AVMStage {
+	private _debug: AVMDebug;
 	constructor(gameConfig) {
 		super(gameConfig);
 		this.registerAVMStageHandler(new AVM1Handler());
@@ -15,18 +16,14 @@ export class AVMPlayer extends AVMStage {
 
 		// export player api
 		//if(!release) {
-			new AVMDebug(this);
+		this._debug = new AVMDebug(this);
 		//}
 	}
 
 	protected onAVMAvailable(event: AVMEvent) {
-		if (event.avmVersion == AVMVERSION.AVM1) {
-			console.log("AVM1 has init");
+		if(this._debug) {
+			this._debug.onAvmInit(event.avmVersion === AVMVERSION.AVM1 ? 1 : 2);
 		}
-		else if (event.avmVersion == AVMVERSION.AVM2) {
-			console.log("AVM2 has init");
-		}
-
 	}
 }
 

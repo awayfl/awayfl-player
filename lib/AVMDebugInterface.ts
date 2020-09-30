@@ -2,7 +2,8 @@
 import { AVMStage,  registerDebugMethod } from "@awayfl/swf-loader";
 import { DisplayObject } from '@awayjs/scene';
 import { PickGroup } from "@awayjs/view";
-import { Point } from '@awayjs/core';
+import { SharedObjectDebug as SOavm2 } from "@awayfl/playerglobal";
+import { SharedObjectDebug as SOavm1 } from "@awayfl/avm1";
 
 function fullSerializer(obj: any) {
 	const clone = Object.assign({}, obj);
@@ -67,6 +68,12 @@ export class AVMDebug {
 
         //@ts-ignore
         window._AWAY_DEBUG_PLAYER_ = this;
+    }
+
+    public onAvmInit(version: number) {
+
+        //@ts-ignore
+        window._AWAY_DEBUG_STORAGE = version === 1 ? SOavm1 : SOavm2;
     }
 
     private _selectNode(ids: number[]): DisplayObject {
