@@ -1,6 +1,5 @@
-TITLE Init AwayFL Dev Enviroment
 echo [32m Clones and links all AwayFL modules into a directory "@awayfl", and all and AwayJS modules into a directory "@awayjs" at the same level as the awayfl-player directory[0m
-sleep
+read -n 1 -s -r -p "Press any key to continue"
 cd ..
 cd ..
 
@@ -173,5 +172,3 @@ yarn link @awayfl/swf-loader
 yarn link @awayfl/avm1
 yarn link @awayfl/avm2
 yarn link @awayfl/playerglobal
-
-sleep

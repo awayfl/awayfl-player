@@ -1,6 +1,17 @@
-TITLE Init AwayFL Dev Enviroment
-echo [32m Clones and links all AwayFL modules into a directory "@awayfl", and all and AwayJS modules into a directory "@awayjs" at the same level as the awayfl-player directory[0m
-sleep
+set -euo pipefail
+
+function updateIfNeeded () {
+    set +e
+    UP_TO_DATE=`git pull origin $1 2>/dev/null | grep "Already up to date" | wc -l`
+    set -e
+    if [[ "$UP_TO_DATE" == 0 ]]; then
+        yarn
+        npm run tsc:build
+    fi
+}
+
+echo [32m Pulls all updates into the "@awayjs" and "@awayfl" directories, and runs tsc:build[0m
+read -n 1 -s -r -p "Press any key to continue"
 cd ..
 cd ..
 
@@ -8,54 +19,39 @@ cd @awayjs
 
 echo [32m Cloning "@awayjs" modules from Github[0m
 
-
-echo [32m Checkout and link "@awayjs/core" module[0m
+echo [32m Checkout and build "@awayjs/core" module if needed[0m
 cd core
-git pull origin dev
-yarn
-npm run tsc:build
+updateIfNeeded dev
 cd ..
 
-echo [32m Checkout and link "@awayjs/stage" module[0m
+echo [32m Checkout and build "@awayjs/stage" module if needed[0m
 cd stage
-git pull origin dev
-yarn
-npm run tsc:build
+updateIfNeeded dev
 cd ..
 
-echo [32m Checkout and link "@awayjs/view" module[0m
+echo [32m Checkout and build "@awayjs/view" module if needed[0m
 cd view
-git pull origin dev
-yarn
-npm run tsc:build
+updateIfNeeded dev
 cd ..
 
-echo [32m Checkout and link "@awayjs/renderer" module[0m
+echo [32m Checkout and build "@awayjs/renderer" module if needed[0m
 cd renderer
-git pull origin dev
-yarn
-npm run tsc:build
+updateIfNeeded dev
 cd ..
 
-echo [32m Checkout and link "@awayjs/graphics" module[0m
+echo [32m Checkout and build "@awayjs/graphics" module if needed[0m
 cd graphics
-git pull origin dev
-yarn
-npm run tsc:build
+updateIfNeeded dev
 cd ..
 
-echo [32m Checkout and link "@awayjs/materials" module[0m
+echo [32m Checkout and build "@awayjs/materials" module if needed[0m
 cd materials
-git pull origin dev
-yarn
-npm run tsc:build
+updateIfNeeded dev
 cd ..
 
-echo [32m Checkout and link "@awayjs/scene" module[0m
+echo [32m Checkout and build "@awayjs/scene" module if needed[0m
 cd scene
-git pull origin dev
-yarn
-npm run tsc:build
+updateIfNeeded dev
 cd ..
 
 cd ..
@@ -63,40 +59,28 @@ cd ..
 echo [32m Cloning "@awayfl" modules from Github[0m
 cd @awayfl
 
-echo [32m Checkout and link "@awayfl/swf-loader" module[0m
+echo [32m Checkout and build "@awayfl/swf-loader" module if needed[0m
 cd swf-loader
-git pull origin dev
-yarn
-npm run tsc:build
+updateIfNeeded dev
 cd ..
 
-echo [32m Checkout and link "@awayfl/avm1" module[0m
+echo [32m Checkout and build "@awayfl/avm1" module if needed[0m
 cd avm1
-git pull origin dev
-yarn
-npm run tsc:build
+updateIfNeeded dev
 cd ..
 
-echo [32m Checkout and link "@awayfl/avm2" module[0m
+echo [32m Checkout and build "@awayfl/avm2" module if needed[0m
 cd avm2
-git pull origin dev
-yarn
-npm run tsc:build
+updateIfNeeded dev
 cd ..
 
-echo [32m Checkout and link "@awayfl/playerglobal" module[0m
+echo [32m Checkout and build "@awayfl/playerglobal" module if needed[0m
 cd playerglobal
-git pull origin dev
-yarn
-npm run tsc:build
+updateIfNeeded dev
 cd ..
 
-echo [32m Checkout and link "awayfl-player" module[0m
+echo [32m Checkout and build "awayfl-player" module if needed[0m
 cd ..
 cd awayfl-player
-git pull origin dev
-yarn
-npm run tsc:build
-yarn
-
-sleep
+updateIfNeeded dev
+cd ..
