@@ -105,7 +105,7 @@ export class AVMDebug {
         const view = this.player.scene.view;
         const stage = view.stage;
 
-        const box = PickGroup.getInstance(view).getBoundsPicker(node.partition).getBoxBounds(this.player);
+        const box = PickGroup.getInstance(view).getBoundsPicker(node.partition).getBoxBounds(this.player.scene.root);
         if (!box) {
             return null;
         }
