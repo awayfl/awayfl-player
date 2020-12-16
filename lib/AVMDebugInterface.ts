@@ -94,7 +94,7 @@ export class AVMDebug {
     }
 
     private _getStageCanvas() {
-        return this.player.scene.view.stage.container;
+        return this.player.view.stage.container;
     }
 
     private _dirObjectByIds(ids: number[]){    
@@ -102,10 +102,10 @@ export class AVMDebug {
     }
 
     private _getNodeBounds(node: DisplayObject) {
-        const view = this.player.scene.view;
+        const view = this.player.view;
         const stage = view.stage;
 
-        const box = PickGroup.getInstance(view).getBoundsPicker(node.partition).getBoxBounds(this.player);
+        const box = PickGroup.getInstance(view).getBoundsPicker(node.partition).getBoxBounds(this.player.root);
 
         if (!box)
             return null;
@@ -192,7 +192,7 @@ export class AVMDebug {
         } = params;
 
         const tree = [];
-        const q: any[] = this.player._children.slice();
+        const q: any[] = this.player.root._children.slice();
 
         while(true) {
             const node = q.pop();
