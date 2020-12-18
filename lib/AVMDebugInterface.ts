@@ -77,7 +77,7 @@ export class AVMDebug {
     }
 
     private _selectNode(ids: number[]): DisplayObject {
-        let node = this.player as any;
+        let node = this.player.root as any;
         
         for(let i of ids) {
             node = node._children.find((e) => e.id === i);
