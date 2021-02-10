@@ -103,9 +103,19 @@ export class AVMDebug {
 
     private _getNodeBounds(node: DisplayObject) {
         const view = this.player.view;
-        const stage = view.stage;
 
-        const box = PickGroup.getInstance(view).getBoundsPicker(node.partition).getBoxBounds(this.player.root);
+        let box;
+
+        if (AVMStage.instance) {
+            const partition = AVMStage.instance().pool.getNode(node).partition;
+            const picker = PickGroup.getInstance(view).getBoundsPicker(partition);
+
+            box = picker.getBoxBounds(AVMStage.instance().pool.getNode(this.player.root), true, true)
+ 
+        } else {
+            //@ts-ignore
+            box = PickGroup.getInstance(view).getBoundsPicker(node.partition).getBoxBounds(this.player.root);
+        }
 
         if (!box)
             return null;
