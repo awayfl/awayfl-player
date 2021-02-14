@@ -105,12 +105,14 @@ export class AVMDebug {
         const view = this.player.view;
 
         let box;
-
-        if (AVMStage.instance) {
-            const partition = AVMStage.instance().pool.getNode(node).partition;
+        const pool = AVMStage.instance && (<any>AVMStage.instance()).pool
+        if (pool) {
+            //@ts-ignore
+            const partition = pool.getNode(node).partition;
             const picker = PickGroup.getInstance(view).getBoundsPicker(partition);
 
-            box = picker.getBoxBounds(AVMStage.instance().pool.getNode(this.player.root), true, true)
+            //@ts-ignore
+            box = picker.getBoxBounds(pool.getNode(this.player.root, true, true));
  
         } else {
             //@ts-ignore
@@ -202,6 +204,7 @@ export class AVMDebug {
         } = params;
 
         const tree = [];
+        //@ts-ignore
         const q: any[] = this.player.root._children.slice();
 
         while(true) {
