@@ -50,6 +50,7 @@ cd %2
 for /f "tokens=* USEBACKQ" %%g in (`git rev-parse --abbrev-ref HEAD`) do (set "modulebranch=%%g")
 
 IF NOT %modulebranch%==%branch% (
+    call git stash --include-untracked || ECHO Nothing to stash
     call git pull || EXIT /b 1
     call git checkout %branch% || EXIT /b 1
     call npm run tsc:build

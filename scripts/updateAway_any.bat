@@ -7,7 +7,7 @@ IF NOT [%1]==[] (
     set branch=%~1
     ECHO SET %~1
 ) ELSE (
-    set branch=dev
+    set /p branch= Enter branch name:
 )
 
 ECHO Current branch: %branch%
@@ -55,6 +55,7 @@ cd %2
 for /f "tokens=* USEBACKQ" %%g in (`git rev-parse --abbrev-ref HEAD`) do (set "modulebranch=%%g")
 
 IF NOT %modulebranch%==%branch% (
+    call git stash --include-untracked || ECHO Nothing to stash
     call git pull || EXIT /b 1
     call git checkout %branch% || ECHO Branch %branch% not exist, will used a %modulebranch%
     call npm run tsc:build
