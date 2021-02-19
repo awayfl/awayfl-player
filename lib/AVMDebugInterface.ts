@@ -112,7 +112,7 @@ export class AVMDebug {
             const picker = PickGroup.getInstance(view).getBoundsPicker(partition);
 
             //@ts-ignore
-            box = picker.getBoxBounds(pool.getNode(this.player.root, true, true));
+            box = picker.getBoxBounds(pool.getNode(this.player.root), true, true);
  
         } else {
             //@ts-ignore
