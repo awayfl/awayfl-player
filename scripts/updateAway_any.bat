@@ -60,7 +60,8 @@ IF NOT %modulebranch%==%branch% (
     call git checkout %branch% || ECHO Branch %branch% not exist, will used a %modulebranch%
     call npm run tsc:build
 ) ELSE (
-    call git pull | findstr /C:"Already up to date." || call npm run tsc:build
+    call git pull | findstr /C:"Already up to date."
+    call npm run tsc:build
 )
 cd..
 
