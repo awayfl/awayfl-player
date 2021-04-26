@@ -23,6 +23,10 @@ function fullSerializer(obj: any) {
 const OBJECT_FIELDS = ['id','visible', 'index', 'assetType:type', 'name'];
 
 export class AVMDebug {
+	private _rafState: 'stop' | 'next' | 'play' = 'play';
+	private _defaultRaf: any = self.requestAnimationFrame;
+	private _requestedCallbacks: FrameRequestCallback [] = [];
+
 	constructor(public player: AVMStage) {
 		
 		registerDebugMethod(this._dirObjectByIds.bind(this), { 
@@ -65,6 +69,26 @@ export class AVMDebug {
 			description:"Get canvas attahed to stage", 
 			declaration: [] 
 		});
+		
+		registerDebugMethod(this._setRAFState.bind(this), {
+			name: "setRAFState",
+			description: "Changed RAF state",
+			declaration: [
+				{name:'return', type: 'string'},
+				{name:'state', type: 'string'}
+			]
+		});
+
+		registerDebugMethod(this._getRAFState.bind(this), {
+			name: "getRAFState",
+			description: "Changed RAF state",
+			declaration: [
+				{name:'return', type: 'string'},
+				{name:'state', type: 'string'}
+			]
+		});
+
+		this._mokedRaf = this._mokedRaf.bind(this);
 
 		//@ts-ignore
 		window._AWAY_DEBUG_PLAYER_ = this;
@@ -74,6 +98,56 @@ export class AVMDebug {
 
 		//@ts-ignore
 		window._AWAY_DEBUG_STORAGE = version === 1 ? SOavm1 : SOavm2;
+	}
+
+	private _mokedRaf(callback: FrameRequestCallback) {
+		if (this._requestedCallbacks.indexOf(callback) !== -1) return;
+
+		this._requestedCallbacks.push(callback);
+		return 0;
+	}
+
+	private _setRAFState(state: 'stop' | 'next' | 'play'): 'stop' | 'next' | 'play' {
+		if (!state) return this._rafState;
+		if (state === this._rafState)
+			return;
+
+		if(state === 'next' && this._rafState === 'stop') {			
+			const time = performance.now();			
+			const callbacks = this._requestedCallbacks.slice();
+
+			this._rafState = 'next';
+			this._requestedCallbacks.length = 0;
+
+			callbacks.forEach((e) => e && e(time));
+
+			return this._rafState = 'stop';
+		}
+
+		if (state === 'stop') {
+			this._requestedCallbacks.length = 0;
+			self.requestAnimationFrame = this._mokedRaf;
+
+			return this._rafState = 'stop';
+		}
+
+		if (state === 'play') {
+			const time = performance.now();			
+			const callbacks = this._requestedCallbacks.slice();
+
+			this._rafState = 'play';
+			this._requestedCallbacks.length = 0;
+
+			self.requestAnimationFrame = this._defaultRaf;
+
+			callbacks.forEach((e) => e && e(time));
+		}
+
+		return this._rafState;
+	}
+
+	private _getRAFState(): 'stop' | 'next' | 'play' {
+		return this._rafState;
 	}
 
 	private _selectNode(ids: number[]): DisplayObject {
