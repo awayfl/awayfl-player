@@ -9,3 +9,4 @@ export {LoaderEvent} from "@awayjs/core";
 export {EventBase} from "@awayjs/core";
 export {StageManager} from "@awayjs/stage";
 export {Settings as AVM2Settings} from "@awayfl/avm2";
+export {PlayerGlobal} from "@awayfl/playerglobal";
