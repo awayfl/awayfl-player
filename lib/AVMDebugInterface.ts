@@ -171,8 +171,16 @@ export class AVMDebug {
 		return this.player.view.stage.container;
 	}
 
-	private _dirObjectByIds(ids: number[]){    
-		console.dir(this._selectNode(ids));
+	private _dirObjectByIds(ids: number[]) {
+		const node = this._selectNode(ids);
+		//@ts-ignore
+		const exposeID = window._lastTempNode = window._lastTempNode || 1;
+		//@ts-ignore
+		window._lastTempNode++;
+
+		window['tempNode' + exposeID] = node
+		console.log('tempNode' + exposeID, '=');
+		console.dir(node);
 	}
 
 	private _getNodeBounds(node: DisplayObject) {
