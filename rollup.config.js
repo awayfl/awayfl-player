@@ -1,45 +1,31 @@
-var includePaths = require('rollup-plugin-includepaths');
-var commonjs = require('rollup-plugin-commonjs');
-var nodeResolve = require('rollup-plugin-node-resolve');
+import nodeResolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import { terser } from 'rollup-plugin-terser';
+import gzip from 'rollup-plugin-gzip';
 
-module.exports = {
+export default {
 	input: './dist/index.js',
 	output: {
-		name: 'AwayflPlayer',
+		name: 'awayflplayer',
 		sourcemap: true,
-		format: 'umd',
+		format: 'iife',
 		file: './bundle/awayfl-player.umd.js',
-		globals: {
-			'@awayfl/swf-loader': 'AwayflSwfLoader',
-			'@awayfl/avm1': 'AwayflAvm1',
-			'@awayfl/avm2': 'AwayflAvm2',
-			'@awayfl/playerglobal': 'AwayflPlayerglobal',
-			'@awayjs/core': 'AwayjsCore',
-			'@awayjs/graphics': 'AwayjsGraphics',
-			'@awayjs/materials': 'AwayjsMaterials',
-			'@awayjs/renderer': 'AwayjsRenderer',
-			'@awayjs/scene': 'AwayjsScene',
-			'@awayjs/stage': 'AwayjsStage',
-			'@awayjs/view': 'AwayjsView',
-		},
 	},
-	external: [
-		'@awayfl/swf-loader',
-		'@awayfl/avm1',
-		'@awayfl/avm2',
-		'@awayfl/playerglobal',
-		'@awayjs/core',
-		'@awayjs/graphics',
-		'@awayjs/materials',
-		'@awayjs/renderer',
-		'@awayjs/scene',
-		'@awayjs/stage',
-		'@awayjs/view',
-	],
 	plugins: [
-		nodeResolve({
-			jsnext: true,
-			main: true,
-			module: true
-		}) ]
+		nodeResolve(),
+		// {
+        //     transform(code, id) {
+        //         return code.replace(/\/\*\* @class \*\//g, "\/*@__PURE__*\/");
+        //     }
+        // },
+		commonjs(),
+		terser({
+			// mangle: {
+			// 	properties: {
+			// 		reserved: ['startPokiGame', 'userAgent', 'Number', '__constructor__', 'prototype']
+			// 	}
+			// }
+		}),
+		gzip()
+	]
 };

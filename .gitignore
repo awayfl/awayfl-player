@@ -1,4 +1,5 @@
 # Build and Release Folders
+bin/
 node_modules/
 dist/
 bundle/

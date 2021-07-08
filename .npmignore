@@ -1,5 +1,8 @@
 # Build and Release Folders
+bin/
 node_modules/
+src/
+template/
 
 # Dev files
 npm-debug.log
