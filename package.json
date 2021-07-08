@@ -1,6 +1,6 @@
 {
 	"name": "@awayfl/awayfl-player",
-	"version": "0.2.29",
+	"version": "0.2.30",
 	"description": "Flash Player emulator for executing SWF files (published for FP versions 6 and up) in javascript",
 	"main": "bundle/awayfl-player.umd.js",
 	"module": "dist/index.js",
@@ -11,7 +11,7 @@
 		"rimraf": "rimraf",
 		"rollup": "rollup -c",
 		"tsc": "tsc",
-    	"tsc:build": "npm run tsc || exit 0",
+		"tsc:build": "npm run tsc || exit 0",
 		"webpack": "webpack",
 		"clean": "npm cache clean && npm run rimraf -- node_modules bin",
 		"clean:bin": "npm run rimraf -- bin",
