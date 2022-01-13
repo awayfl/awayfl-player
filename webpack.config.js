@@ -52,8 +52,17 @@ module.exports = (env = {}) => {
 		},
 		module: {
 			rules: [
+				// 
+				{
+					test: /\.ts$/,
+					include: path.resolve(__dirname, "assembly"),
+					loader: "as-loader",
+					options: {
+						// optional loader and compiler options
+					}
+				},
 				// all files with a `.ts` or `.tsx` extension will be handled by `awesome-typescript-loader`
-				{ test: /\.ts(x?)/, exclude: /node_modules/, loader: tsloader, options: { experimentalWatchApi: true} },
+				{ test: /\.ts(x?)/, exclude: /node_modules|assembly/, loader: tsloader, options: { experimentalWatchApi: true } },
 
 				// all files with a `.js` or `.jsx` extension will be handled by `source-map-loader`
 				//{ test: /\.js(x?)/, loader: require.resolve('source-map-loader') }
