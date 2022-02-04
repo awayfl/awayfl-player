@@ -9,6 +9,7 @@ ECHO [32m Cloning "@awayjs" modules from Github[0m
 
 mkdir @awayjs
 cd @awayjs
+git clone https://github.com/awayjs/assembly.git
 git clone https://github.com/awayjs/core.git
 git clone https://github.com/awayjs/graphics.git
 git clone https://github.com/awayjs/scene.git
@@ -17,11 +18,19 @@ git clone https://github.com/awayjs/renderer.git
 git clone https://github.com/awayjs/materials.git
 git clone https://github.com/awayjs/view.git
 
+ECHO [32m Checkout and link "@awayjs/assembly" module[0m
+cd assembly
+git checkout dev
+call yarn
+call yarn link
+cd..
+
 ECHO [32m Checkout and link "@awayjs/core" module[0m
 cd core
 git checkout dev
 call yarn
 call yarn link
+call yarn link @awayjs/assembly
 cd..
 
 ECHO [32m Checkout and link "@awayjs/stage" module[0m
@@ -29,6 +38,7 @@ cd stage
 git checkout dev
 call yarn
 call yarn link
+call yarn link @awayjs/assembly
 call yarn link @awayjs/core
 cd..
 
@@ -37,6 +47,7 @@ cd view
 git checkout dev
 call yarn
 call yarn link
+call yarn link @awayjs/assembly
 call yarn link @awayjs/core
 call yarn link @awayjs/stage
 cd..
@@ -46,6 +57,7 @@ cd renderer
 git checkout dev
 call yarn
 call yarn link
+call yarn link @awayjs/assembly
 call yarn link @awayjs/core
 call yarn link @awayjs/stage
 call yarn link @awayjs/view
@@ -56,6 +68,7 @@ cd graphics
 git checkout dev
 call yarn
 call yarn link
+call yarn link @awayjs/assembly
 call yarn link @awayjs/core
 call yarn link @awayjs/stage
 call yarn link @awayjs/view
@@ -67,6 +80,7 @@ cd materials
 git checkout dev
 call yarn
 call yarn link
+call yarn link @awayjs/assembly
 call yarn link @awayjs/core
 call yarn link @awayjs/stage
 call yarn link @awayjs/renderer
@@ -78,6 +92,7 @@ cd scene
 git checkout dev
 call yarn
 call yarn link
+call yarn link @awayjs/assembly
 call yarn link @awayjs/core
 call yarn link @awayjs/stage
 call yarn link @awayjs/view
@@ -102,6 +117,7 @@ cd swf-loader
 git checkout dev
 call yarn
 call yarn link
+call yarn link @awayjs/assembly
 call yarn link @awayjs/core
 call yarn link @awayjs/view
 call yarn link @awayjs/stage
@@ -116,6 +132,7 @@ cd avm1
 git checkout dev
 call yarn
 call yarn link
+call yarn link @awayjs/assembly
 call yarn link @awayjs/core
 call yarn link @awayjs/view
 call yarn link @awayjs/stage
@@ -131,6 +148,7 @@ cd avm2
 git checkout dev
 call yarn
 call yarn link
+call yarn link @awayjs/assembly
 call yarn link @awayjs/core
 call yarn link @awayjs/view
 call yarn link @awayjs/renderer
@@ -146,6 +164,7 @@ cd playerglobal
 git checkout dev
 call yarn
 call yarn link
+call yarn link @awayjs/assembly
 call yarn link @awayjs/core
 call yarn link @awayjs/stage
 call yarn link @awayjs/view
@@ -163,6 +182,7 @@ cd awayfl-player
 git checkout dev
 call yarn
 call yarn link
+call yarn link @awayjs/assembly
 call yarn link @awayjs/core
 call yarn link @awayjs/stage
 call yarn link @awayjs/view

@@ -11,6 +11,8 @@ cd..
 cd..
 cd @awayjs
 
+call :process_module awayjs assembly || GOTO handle_fail
+
 call :process_module awayjs core || GOTO handle_fail
 
 call :process_module awayjs stage || GOTO handle_fail

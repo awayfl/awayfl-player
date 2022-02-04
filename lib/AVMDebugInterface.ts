@@ -191,14 +191,14 @@ export class AVMDebug {
 		if (pool) {
 			//@ts-ignore
 			const partition = pool.getNode(node).partition;
-			const picker = PickGroup.getInstance(view).getBoundsPicker(partition);
+			const picker = PickGroup.getInstance().getBoundsPicker(partition);
 
 			//@ts-ignore
 			box = picker.getBoxBounds(pool.getNode(this.player.root), true, true);
  
 		} else {
 			//@ts-ignore
-			box = PickGroup.getInstance(view).getBoundsPicker(node.partition).getBoxBounds(this.player.root);
+			box = PickGroup.getInstance().getBoundsPicker(node.partition).getBoxBounds(this.player.root);
 		}
 
 		if (!box)
