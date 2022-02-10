@@ -17,6 +17,8 @@ module.exports = {
 
 	entryName: "Main", 		//	name of webpack-entry - must be set for each config (use package.main ?)
 	entryPath: "./src/Main.ts", 		//	path to webpack-entry - must be set for each config (use package.main ?)
+	assemblyEntryName: "Assembly", // name of webpack-entry
+	assemblyEntryPath: "@awayjs/assembly",
 
 	buildinsPath: path.join(__dirname, "builtins"), 	//	path to buildins - must be set when amv2 will be used
 	indexTemplate: path.join(__dirname, "template", "index_template.html"), 	//	path to game-html template - must be set

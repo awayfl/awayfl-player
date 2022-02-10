@@ -34,6 +34,7 @@ module.exports = (env = {}) => {
 
 	const entry = {};
 	entry[config.entryName] = [config.entryPath];
+	entry[config.assemblyEntryName] = [config.assemblyEntryPath];
 
 	let plugins = processConfig(config, __dirname, CopyWebPackPlugin, HTMLWebPackPlugin, webpack.BannerPlugin, fs, rimraf, path);
 

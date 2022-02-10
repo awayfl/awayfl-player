@@ -9,7 +9,7 @@
 	<meta name="viewport"
 		content="height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
 	<title>INSERT_TITLE</title>
-
+	<script type="text/javascript" src="./js/Assembly.js"></script>
 	<script type="text/javascript" src="./js/loader.js"></script>
 	<style>
 		* {
@@ -72,10 +72,12 @@
 		window.addEventListener("load", () => {
 
 			INSERT_CODE
+			__assemblyLoaded.then(() => {
+				Loader.init(config);
+	
+				Loader.runPlayer((fill) => { }, (instance) => { })
+			})
 
-			Loader.init(config);
-
-			Loader.runPlayer((fill) => { }, (instance) => { })
 
 		})
 
