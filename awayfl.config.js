@@ -13,7 +13,7 @@ module.exports = {
 	rt_showFPS: false,			//	show fps display - always false in prod
 	cacheBuster: true,			//	add cachebuster to urls - always false in prod
 	allowURLSearchParams: true, //	allow changing config via url-params - always false in prod
-	split: false, 				//	create own folder for each file - only available in prod
+	split: true, 				//	create own folder for each file - only available in prod
 
 	entryName: "Main", 		//	name of webpack-entry - must be set for each config (use package.main ?)
 	entryPath: "./src/Main.ts", 		//	path to webpack-entry - must be set for each config (use package.main ?)
