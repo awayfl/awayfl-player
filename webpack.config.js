@@ -47,16 +47,21 @@ module.exports = (env = {}) => {
 			filename: 'js/[name].js'
 		},
 		resolve: {
+			alias: {},
 			// Add `.ts` and `.tsx` as a resolvable extension.
 			extensions: ['.webpack.js', '.web.js', '.js', '.ts', '.tsx']
 		},
 		module: {
 			rules: [
-				// all files with a `.ts` or `.tsx` extension will be handled by `awesome-typescript-loader`
-				{ test: /\.ts(x?)/, exclude: /node_modules/, loader: tsloader, options: { experimentalWatchApi: true} },
-
-				// all files with a `.js` or `.jsx` extension will be handled by `source-map-loader`
-				//{ test: /\.js(x?)/, loader: require.resolve('source-map-loader') }
+				{
+					test: /\.ts(x?)/,
+					exclude: /node_modules/,
+					loader: tsloader,
+					options: {
+						experimentalWatchApi: true,
+						transpileOnly: true
+					}
+				},
 			]
 		},
 		plugins: plugins,
@@ -71,26 +76,28 @@ module.exports = (env = {}) => {
 		},
 		devServer: {
 			client: {
-				progress: true,
+				progress: true, // wp5
 			}
 		},
-
-
 	}
 
 	const dev = {
+		target: 'web',
 		mode: "development",// wp4
-		devtool: 'source-map',
-		//devtool: 'cheap-module-eval-source-map',//use this option for recompiling libs
+		//devtool: 'source-map',
+		devtool: 'cheap-module-source-map',//use this option for recompiling libs
 		devServer: {
-			//contentBase: path.join(process.cwd(), "src"),
 			static: {
 				publicPath: "/",
 			},
 			open: false,
+			hot: false,
+			watchFiles: ['src/**/*.*'],
 			client: {
 				progress: true,
-			}
+			},
+			allowedHosts: "all",
+			port: 80,
 		},
 		optimization: {
 			//minimize: false // wp4
@@ -176,33 +183,49 @@ const processConfig = (config, rootPath, CopyWebPackPlugin, HTMLWebPackPlugin, B
 
 		swfPath = path.join(rootPath, "src", "assets", configForHTML.filename + ".swf");
 		if (!fs.existsSync(swfPath)) {
-			throw ("invalid filename path for fileconfig " + configForHTML.filename);
+			throw new Error("invalid filename path for fileconfig " + configForHTML.filename);
 		}
 		stats = fs.statSync(swfPath);
 		filesize = stats["size"];
 		if (!fs.existsSync(path.join(rootPath, "src", "assets", configForHTML.splash))) {
-			throw ("invalid splashscreen path for fileconfig " + configForHTML.splash);
+			throw new Error("invalid splashscreen path for fileconfig " + configForHTML.splash);
 		}
+
 		plugins.push(new CopyWebPackPlugin({
 			patterns: [
 				{ from: swfPath, to: outputPath + "assets" },
 			],
 		}));
+
 		plugins.push(new CopyWebPackPlugin({
 			patterns: [
 				{ from: path.join(rootPath, "src", "assets", configForHTML.splash), to: outputPath + "assets" },
 			],
 		}));
 
-		//	optional copy startscreen:
+		//	optional copy loading image:
 
-		if (configForHTML.start) {
-			if (!fs.existsSync(path.join(rootPath, "src", "assets", configForHTML.start))) {
-				throw ("invalid startscreen path for fileconfig " + configForHTML.start);
+		if (configForHTML.loading) {
+			if (!fs.existsSync(path.join(rootPath, "src", "assets", configForHTML.loading.image))) {
+				throw ("invalid loading image path for fileconfig " + configForHTML.loading.image);
 			}
 			plugins.push(new CopyWebPackPlugin({
 				patterns: [
-					{ from: path.join(rootPath, "src", "assets", configForHTML.start), to: outputPath + "assets" },
+					{ from: path.join(rootPath, "src", "assets", configForHTML.loading.image), to: outputPath + "assets" },
+				],
+			}));
+		}
+
+
+		//	optional copy start image:
+
+		if (configForHTML.start) {
+			if (!fs.existsSync(path.join(rootPath, "src", "assets", configForHTML.start.image))) {
+				throw ("invalid start image path for fileconfig " + configForHTML.start.image);
+			}
+			plugins.push(new CopyWebPackPlugin({
+				patterns: [
+					{ from: path.join(rootPath, "src", "assets", configForHTML.start.image), to: outputPath + "assets" },
 				],
 			}));
 		}
@@ -222,7 +245,7 @@ const processConfig = (config, rootPath, CopyWebPackPlugin, HTMLWebPackPlugin, B
 				if (!res_filesize) {
 					// only need to copy if it has not yet been done
 					if (!fs.existsSync(res_path)) {
-						throw ("invalid filename path for resource " + res_path);
+						throw new Error("invalid filename path for resource " + res_path);
 					}
 					plugins.push(new CopyWebPackPlugin({
 						patterns: [
@@ -247,7 +270,7 @@ const processConfig = (config, rootPath, CopyWebPackPlugin, HTMLWebPackPlugin, B
 
 				// extension is missing = is folder	
 				if (!fs.existsSync(res_path)) {
-					throw ("invalid filename path for asset " + res_path);
+					throw new Error("invalid filename path for asset " + res_path);
 				}
 
 				let folder = fs.lstatSync(res_path).isDirectory();
@@ -272,8 +295,11 @@ const processConfig = (config, rootPath, CopyWebPackPlugin, HTMLWebPackPlugin, B
 		if (configForHTML.splash)
 			configForHTML.splash = "assets/" + configForHTML.splash;
 
+		if (configForHTML.loading)
+			configForHTML.loading.image = "assets/" + configForHTML.loading.image;
+
 		if (configForHTML.start)
-			configForHTML.start = "assets/" + configForHTML.start;
+			configForHTML.start.image = "assets/" + configForHTML.start.image;
 
 
 		var runtimePath = "js/" + config.entryName + ".js";
@@ -309,8 +335,27 @@ const processConfig = (config, rootPath, CopyWebPackPlugin, HTMLWebPackPlugin, B
 
 		// code to overwrite config by URLSearchParams
 		if (config.allowURLSearchParams) {
-			jsStringForHTML += "const q = new URLSearchParams(location.search);\n";
-			jsStringForHTML += "for (let key of q.keys()){ config[key] = q.get(key);};\n";
+			jsStringForHTML += `const q = new URLSearchParams(location.search);
+			
+			for (let key of q.keys()){ 
+				let value = q.get(key);
+
+				if (value.includes("<boolean>") || value.includes("<bool>")) {
+					let valueWithoutClass = value.replace(/<boolean>/g,'').replace(/<bool>/g,'').toLowerCase();
+					if (["true", "t", "1"].includes(valueWithoutClass)) config[key] = true;
+					else if (["false", "f", "0"].includes(valueWithoutClass)) config[key] = false;
+					else console.warn("Unable to cast URLSearchParam '" + key + "'='" + valueWithoutClass + "' as boolean");
+				} else if (value.includes("<int>") || value.includes("<integer>") || value.includes("<number>")) {
+					let valueWithoutClass = value.replace(/<int>/g,'').replace(/<integer>/g,'').replace(/<number>/g,'');
+					config[key] = parseInt(valueWithoutClass, 10);
+				} else {
+					// treat this as string
+					config[key] = q.get(key);
+				}
+
+				// console.log({key, value, result: config[key]}); 
+			};
+			`;
 		}
 
 		// add cachebuster
@@ -324,7 +369,7 @@ const processConfig = (config, rootPath, CopyWebPackPlugin, HTMLWebPackPlugin, B
 		var htmlOutputPath = (config.split ? folderName + "/" : "") + (config.split ? "index.html" : folderName + ".html");
 		gameURLS[fileConfig.rt_filename] = {
 			path: htmlOutputPath,
-			name: configForHTML.title
+			name: configForHTML.title,
 		};
 
 		var htmlSourcePath = getConfigProp(fileConfig, config, "gameTemplate");
@@ -373,7 +418,7 @@ const processConfig = (config, rootPath, CopyWebPackPlugin, HTMLWebPackPlugin, B
 
 		plugins.push({
 			apply: function (compiler) {
-				compiler.plugin('done', function (compilation) {
+				compiler.hooks.afterEmit.tap('MyPlugin', function (compilation) {
 					console.log("copy build to game-folders");
 					for (var i = 0; i < config.fileconfigs.length; i++) {
 						copyRecursiveSync(fs, path, path.join(rootPath, "bin", "js"), path.join(rootPath, "bin", config.fileconfigs[i].rt_filename, "js"));
@@ -394,6 +439,7 @@ var getConfigProp = function (fileconfig, config, name) {
 };
 
 // get a config for a game-file.
+// this filters out all props that are not prefixed by "rt_"
 // also takes care that it uses props from global-config if file-config does not provide it
 // this can probably be done better and cleaner
 // but for now it should do the job
