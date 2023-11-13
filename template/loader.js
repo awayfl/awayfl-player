@@ -484,7 +484,12 @@ var Loader = (function () {
 			if(!w) w=window.innerWidth;
 			if(!h) h=window.innerHeight;
 
-			const minMax = Math.min(h / config.height, w / config.width);
+			if (config.stageScaleMode == "noBorder") {
+
+			}
+			const minMax = (config.stageScaleMode == "noBorder")
+				? Math.max(h / config.height, w / config.width)
+				: Math.min(h / config.height, w / config.width);
 			const rw = Math.ceil(config.width * minMax);
 			const rh = Math.ceil(config.height * minMax);
 			const rx = x+(w - rw) / 2;
