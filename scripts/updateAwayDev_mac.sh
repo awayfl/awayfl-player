@@ -1,5 +1,7 @@
 set -euo pipefail
 
+cd $(dirname "$0")
+
 function updateIfNeeded () {
     set +e
     UP_TO_DATE=`git pull origin $1 2>/dev/null | grep "Already up to date" | wc -l`
@@ -84,3 +86,6 @@ cd ..
 cd awayfl-player
 updateIfNeeded dev
 cd ..
+
+read -n 1 -s -r -p "Press any key to continue . . ."
+exit
