@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["es2015.symbol", "dom", "scripthost", "es2015", "es2015.iterable"],
+    "lib": ["DOM","ScriptHost", "ESNext"],
     "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
