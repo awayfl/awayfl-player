@@ -2,7 +2,6 @@
 bin/
 node_modules/
 src/
-template/
 
 # Dev files
 npm-debug.log
