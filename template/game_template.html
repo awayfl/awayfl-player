@@ -44,7 +44,6 @@
 			background-repeat: no-repeat;
 			background-image: url("INSERT_SPLASHSCREEN");
 			visibility: visible;
-			transition: all 0.5s;
 			z-index: 10;
 		}
 
@@ -57,6 +56,12 @@
 			height: 100%;
 			transition: all 0.5s;
 		}
+		#loading__image {
+			position: absolute;
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
 	</style>
 </head>
 
@@ -65,6 +70,7 @@
 		<div id="progress__root">
 			<div id="progress__line"></div>
 		</div>
+		<div id="loading__image"></div>
 	</div>
 
 	<script>

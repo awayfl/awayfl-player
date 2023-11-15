@@ -303,7 +303,9 @@ var Loader = (function () {
 	let fillLine = undefined;
 	let __config = undefined;
 	let __splash = undefined;
+	let __loading = undefined;
 	let __pr__root = undefined;
+	let __pr__line = undefined;
 	let handleResize = undefined;
 
 	window["setStageDimensions"]=function(x, y, w, h){
@@ -345,20 +347,26 @@ var Loader = (function () {
 			// rereport			
 			completeEvent(f);
 
-			if (__config.start) {
+			const st_conf = __config.start;
+			if (st_conf) {
 
 				//	start image exists. 
 				//	hide progressbar, show startimage and wait for user-input to start the game
-
-				Object.assign(__pr__root.style, {
-					visibility: "hidden",
-					opacity: 0,
+				Object.assign(__pr__line.style, {
+					height: "100%",
+					width: "100%",
 				});
-				Object.assign(__splash.style, {
-					backgroundImage: `url(${__config.start})`,
+				Object.assign(__loading.style, {
+					backgroundImage: `url(${st_conf.image})`,
+					left: `${100 * st_conf.rect[0]}%`,
+					top: `${100 * st_conf.rect[1]}%`,
+					width: `${100 * st_conf.rect[2]}%`,
+					height: `${100 * st_conf.rect[3]}%`,
+					cursor: "pointer",
 				});				
-				let onCLick = (e) => {
-					window.removeEventListener("click", onCLick);
+				let onClick = (e) => {
+					__loading.removeEventListener("click", onClick);
+					__loading.removeEventListener("touchend", onClick);
 					Object.assign(__splash.style, {
 						visibility: "hidden",
 						opacity: 0,
@@ -371,7 +379,8 @@ var Loader = (function () {
 						handleResize=null;
 					}, 500)
 				};
-				window.addEventListener("click", onCLick);
+				__loading.addEventListener("click", onClick);
+				__loading.addEventListener('touchend', onClick);
 			}
 			else {
 				// 	no start image. 
@@ -428,11 +437,14 @@ var Loader = (function () {
 		__config = config;
 
 		const splash = document.querySelector("#splash__image");
+		const loading = document.querySelector("#loading__image");
 		const pr__root = document.querySelector("#progress__root");
 		const pr__line = document.querySelector("#progress__line");
 
 		__splash = splash;
+		__loading = loading;
 		__pr__root = pr__root;
+		__pr__line = pr__line;
 
 		const pr_conf = config.progress;
 		pr_conf.rect = pr_conf.rect || [0, 0.9, 1, 0.2];
@@ -441,6 +453,18 @@ var Loader = (function () {
 			backgroundImage: `url(${config.splash})`,
 			visibility: "visible",
 		});
+
+		const ldg_conf = config.loading;
+
+		if (ldg_conf) {
+			Object.assign(loading.style, {
+				backgroundImage: `url(${ldg_conf.image})`,
+				left: `${100 * ldg_conf.rect[0]}%`,
+				top: `${100 * ldg_conf.rect[1]}%`,
+				width: `${100 * ldg_conf.rect[2]}%`,
+				height: `${100 * ldg_conf.rect[3]}%`,
+			});
+		}
 
 		Object.assign(pr__root.style, {
 			background: pr_conf.back,
