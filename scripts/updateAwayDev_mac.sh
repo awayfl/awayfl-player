@@ -3,16 +3,22 @@ set -euo pipefail
 cd $(dirname "$0")
 
 function updateIfNeeded () {
+    BRANCH=`git rev-parse --abbrev-ref HEAD`
+
     set +e
-    UP_TO_DATE=`git pull origin $1 2>/dev/null | grep "Already up to date" | wc -l`
+    UP_TO_DATE=`git pull origin $1 2>/dev/null | grep "Already up to date"`
     set -e
-    if [[ "$UP_TO_DATE" == 0 ]]; then
+    if [ -z "$UP_TO_DATE" ]; then
         npm run tsc:build
+    else
+        echo Already up to date 
     fi
 }
 
 echo [32m Pulls all updates into the "@awayjs" and "@awayfl" directories, and runs tsc:build[0m
 read -n 1 -s -r -p "Press any key to continue"
+echo
+echo
 cd ..
 cd ..
 
