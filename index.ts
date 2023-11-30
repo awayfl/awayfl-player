@@ -8,3 +8,6 @@ export {EventBase} from "@awayjs/core";
 export {StageManager} from "@awayjs/stage";
 export {Settings as AVM2Settings} from "@awayfl/avm2";
 export {PlayerGlobal} from "@awayfl/playerglobal";
+
+export * as Box2D from "./lib/Box2D";
+export * as Box2DLegacy from "./lib/Box2Dold";
