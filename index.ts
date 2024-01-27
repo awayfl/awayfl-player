@@ -1,3 +1,5 @@
+import { BitmapImage2D, ImageUtils } from "@awayjs/stage";
+
 console.debug("AwayFL-Player - 0.2.40");
 
 export {AVMPlayer} from "./lib/AVMPlayer";
@@ -8,3 +10,10 @@ export {EventBase} from "@awayjs/core";
 export {StageManager} from "@awayjs/stage";
 export {Settings as AVM2Settings} from "@awayfl/avm2";
 export {PlayerGlobal} from "@awayfl/playerglobal";
+
+ImageUtils.registerDefaults(
+	() => new BitmapImage2D(1, 1, true, 0x0),
+	null,
+	null,
+	null,
+);
