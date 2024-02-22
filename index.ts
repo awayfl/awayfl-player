@@ -17,3 +17,7 @@ ImageUtils.registerDefaults(
 	null,
 	null,
 );
+
+export * as Box2D from "./lib/Box2D";
+export * as Box2DLegacy from "./lib/Box2Dold";
+export * as Box2DRaycast from "./lib/Box2Dold_Raycast";
