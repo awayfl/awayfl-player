@@ -97,6 +97,11 @@ export class b2Fixture {
 		return this.m_filter.Copy();
 	}
 
+	public GetTrueFilterData(): b2FilterData
+	{
+	   return this.m_filter;
+	}
+
 	/**
 	 * Get the parent body of this fixture. This is NULL if the fixture is not attached.
 	 * @return the parent body.
