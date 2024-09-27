@@ -56,6 +56,7 @@ export { b2PolyAndEdgeContact } from './Dynamics/Contacts/b2PolyAndEdgeContact';
 export { b2PolygonContact } from './Dynamics/Contacts/b2PolygonContact';
 export { b2PositionSolverManifold } from './Dynamics/Contacts/b2PositionSolverManifold';
 
+export { b2BuoyancyController } from './Dynamics/Controllers/b2BuoyancyController';
 export { b2Controller } from './Dynamics/Controllers/b2Controller';
 export { b2ControllerEdge } from './Dynamics/Controllers/b2ControllerEdge';
 
