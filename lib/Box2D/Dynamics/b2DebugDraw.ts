@@ -210,6 +210,14 @@ export class b2DebugDraw {
 
 	}
 
+	public DrawSquare(param1: b2Vec2, param2: b2Vec2, param3: b2Color, param4: number) : void
+	{
+	   this.m_sprite.graphics.lineStyle(this.m_lineThickness,param3.color,param4);
+	   this.m_sprite.graphics.beginFill(param3.color,param4);
+	   this.m_sprite.graphics.moveTo(param1.x,param1.y);
+	   this.m_sprite.graphics.drawRect(param1.x,param1.y,param2.x - param1.x,param2.y - param1.y);
+	}
+
 	/**
 	* Draw a transform. Choose your own length scale.
 	* @param xf a transform.
