@@ -1417,15 +1417,15 @@ export class b2World {
 
 	// These two are stored purely for efficiency purposes, they don't maintain
 	// any data outside of a call to Step
-	private m_contactSolver: b2ContactSolver = new b2ContactSolver();
-	private m_island: b2Island = new b2Island();
+	public m_contactSolver: b2ContactSolver = new b2ContactSolver();
+	public m_island: b2Island = new b2Island();
 
 	public m_bodyList: b2Body;
 	private m_jointList: b2Joint;
 
 	public m_contactList: b2Contact;
 
-	private m_bodyCount: number /** int */;
+	public m_bodyCount: number /** int */;
 	public m_contactCount: number /** int */;
 	private m_jointCount: number /** int */;
 	private m_controllerList: b2Controller;
