@@ -99,6 +99,15 @@ export class b2Vec2 {
 	public LengthSquared(): number {
 		return (this.x * this.x + this.y * this.y);
 	}
+      
+	public DistanceTo(param1:b2Vec2) : Number
+	{
+	   const _loc2_:b2Vec2 = new b2Vec2();
+	   _loc2_.SetV(param1);
+	   _loc2_.x -= this.x;
+	   _loc2_.y -= this.y;
+	   return _loc2_.Length();
+	}
 
 	public Normalize(): number {
 		const length: number = Math.sqrt(this.x * this.x + this.y * this.y);
@@ -114,6 +123,34 @@ export class b2Vec2 {
 
 	public IsValid(): boolean {
 		return b2Math.IsValid(this.x) && b2Math.IsValid(this.y);
+	}
+      
+	public getAngle() : number
+	{
+	   var _loc2_:number;
+	   var _loc1_:b2Vec2 = new b2Vec2(this.x,this.y);
+	   _loc1_.Normalize();
+	   _loc2_ = Math.acos(_loc1_.x) * 180 / Math.PI;
+	   if(_loc1_.y > 0)
+	   {
+		  //_loc2_ = 360 - _loc2_;
+	   }
+	   return _loc2_;
+	}
+	
+	public setAngle(param1:number) : void
+	{
+	   this.x = Math.cos(param1 / 180 * Math.PI);
+	   this.y = -Math.sin(param1 / 180 * Math.PI);
+	}
+	
+	public isEqual(param1:b2Vec2) : boolean
+	{
+	   if(this.x == param1.x && this.y == param1.y)
+	   {
+		  return true;
+	   }
+	   return false;
 	}
 
 	public x: number;
