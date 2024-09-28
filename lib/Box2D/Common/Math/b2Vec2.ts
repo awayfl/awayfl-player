@@ -100,7 +100,7 @@ export class b2Vec2 {
 		return (this.x * this.x + this.y * this.y);
 	}
       
-	public DistanceTo(param1:b2Vec2) : Number
+	public DistanceTo(param1:b2Vec2) : number
 	{
 	   const _loc2_:b2Vec2 = new b2Vec2();
 	   _loc2_.SetV(param1);
@@ -133,7 +133,7 @@ export class b2Vec2 {
 	   _loc2_ = Math.acos(_loc1_.x) * 180 / Math.PI;
 	   if(_loc1_.y > 0)
 	   {
-		  //_loc2_ = 360 - _loc2_;
+		  _loc2_ = 360 - _loc2_;
 	   }
 	   return _loc2_;
 	}
