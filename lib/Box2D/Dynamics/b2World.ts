@@ -783,7 +783,7 @@ export class b2World {
 			const userData: any = broadPhase.GetUserData(proxy);
 			const fixture: b2Fixture = userData as b2Fixture;
 			const hit: boolean = fixture.RayCast(output, input);
-			if (hit) {
+			if (hit && !fixture.IsSensor()) {
 				const fraction: number = output.fraction;
 				const point: b2Vec2 = new b2Vec2(
 					(1.0 - fraction) * point1.x + fraction * point2.x,
@@ -798,9 +798,13 @@ export class b2World {
 
 	public RayCastOne(point1: b2Vec2, point2: b2Vec2): b2Fixture {
 		let result: b2Fixture;
+		let best: number = Number.MAX_VALUE;
 		function RayCastOneWrapper(fixture: b2Fixture, point: b2Vec2, normal: b2Vec2, fraction: number): number {
-			result = fixture;
-			return fraction;
+			if (fraction <= best) {
+				best = fraction;
+				result = fixture;
+			}
+			return best;
 		}
 		this.RayCast(RayCastOneWrapper, point1, point2);
 		return result;
@@ -1436,7 +1440,7 @@ export class b2World {
 
 	public m_groundBody: b2Body;
 
-	private m_destructionListener: b2DestructionListener;
+	public m_destructionListener: b2DestructionListener;
 	private m_debugDraw: b2DebugDraw;
 
 	// This is used to compute the time step ratio to support a variable time step.
