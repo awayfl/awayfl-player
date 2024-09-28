@@ -123,8 +123,8 @@ export class b2PulleyJoint extends b2Joint {
 
 		this.m_constant = def.lengthA + this.m_ratio * def.lengthB;
 
-		this.m_maxLength1 = b2Math.Min(def.maxLengthA, this.m_constant - this.m_ratio * b2PulleyJoint.b2_minPulleyLength);
-		this.m_maxLength2 = b2Math.Min(def.maxLengthB, (this.m_constant - b2PulleyJoint.b2_minPulleyLength) / this.m_ratio);
+		this.m_maxLength1 = def.maxLengthA;//b2Math.Min(def.maxLengthA, this.m_constant - this.m_ratio * b2PulleyJoint.b2_minPulleyLength);
+		this.m_maxLength2 = def.maxLengthB;//b2Math.Min(def.maxLengthB, (this.m_constant - b2PulleyJoint.b2_minPulleyLength) / this.m_ratio);
 
 		this.m_impulse = 0.0;
 		this.m_limitImpulse1 = 0.0;
