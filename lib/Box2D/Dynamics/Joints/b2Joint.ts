@@ -79,6 +79,16 @@ export class b2Joint {
 		return this.m_bodyA.IsActive() && this.m_bodyB.IsActive();
 	}
 
+	public getCanBeBroken(): boolean
+	{
+		return this.m_canBeBroken;
+	}
+
+	public getBreakForce(): number
+	{
+		return this.m_breakForceLen;
+	}
+
 	//--------------- Internals Below -------------------
 
 	public static Create(def: b2JointDef, allocator: any): b2Joint {
@@ -234,6 +244,8 @@ export class b2Joint {
 	public m_islandFlag: boolean;
 	public m_collideConnected: boolean;
 
+	public m_canBeBroken: boolean = false;
+	public m_breakForceLen: number = 0;
 	private m_userData: any;
 
 	// Cache here per time step to reduce cache misses.
