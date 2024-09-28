@@ -35,7 +35,7 @@ export class b2DistanceJointDef extends b2JointDef {
 		this.localAnchorB.SetV(this.bodyB.GetLocalPoint(anchorB));
 		const dX: number = anchorB.x - anchorA.x;
 		const dY: number = anchorB.y - anchorA.y;
-		length = Math.sqrt(dX * dX + dY * dY);
+		this.length = Math.sqrt(dX * dX + dY * dY);
 		this.frequencyHz = 0.0;
 		this.dampingRatio = 0.0;
 	}
