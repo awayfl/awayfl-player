@@ -289,6 +289,7 @@ export class b2Contact {
 		return b2TimeOfImpact.TimeOfImpact(b2Contact.s_input);
 	}
 
+	public m_swaped: boolean = false;
 	public m_flags: number /** uint */;
 
 	// World pool and list pointers.
