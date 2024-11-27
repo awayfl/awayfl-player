@@ -46,11 +46,19 @@ export class b2Vec2 {
 	}
 
 	public Subtract(v: b2Vec2): void {
-		this.x -= v.x; this.y -= v.y;
+		this.x -= v.x;
+		this.y -= v.y;
 	}
 
 	public Multiply(a: number): void {
-		this.x *= a; this.y *= a;
+		this.x *= a;
+		this.y *= a;
+	}
+
+	public Division(a:number) : void
+	{
+	   this.x /= a;
+	   this.y /= a;
 	}
 
 	public MulM(A: b2Mat22): void {
