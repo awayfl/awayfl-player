@@ -17,6 +17,7 @@ git clone https://github.com/awayjs/stage.git
 git clone https://github.com/awayjs/renderer.git
 git clone https://github.com/awayjs/materials.git
 git clone https://github.com/awayjs/view.git
+git clone https://github.com/awayjs/arcade.git
 
 ECHO [32m Checkout and link "@awayjs/assembly" module[0m
 cd assembly
@@ -100,6 +101,13 @@ call yarn link @awayjs/renderer
 call yarn link @awayjs/graphics
 call yarn link @awayjs/materials
 cd..
+
+ECHO [32m Checkout and link "@awayjs/arcade" module[0m
+cd arcade
+git checkout dev
+call yarn
+call yarn link
+cd ..
 
 cd..
 
