@@ -18,6 +18,16 @@ nape.geom.Vec2.prototype.toPoint = function(output:any) {
     return output;
 }
 
+//add fromPoint
+//@ts-ignore
+nape.geom.Vec2.fromPoint = function(point:any, param2:Boolean = false) {
+    const output = new nape.geom.Vec2();
+    output.x = point.x;
+    output.y = point.y;
+    return output;
+}
+
+
 nape.geom.GeomPoly = class _NewGeomPoly extends nape.geom.GeomPoly {
     constructor(v: any) {
         //@ts-ignore
