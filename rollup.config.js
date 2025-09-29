@@ -40,7 +40,14 @@ export default [
 			file: './template/away_nape.js'
 		},
 		plugins: [
-			typescript(),
+			typescript({
+ 				tsconfigOverride: {
+					compilerOptions: {
+						declaration: false,
+						declarationMap: false,
+					}
+				}
+			}),
 			nodeResolve(),
 			// {
 			//     transform(code, id) {
