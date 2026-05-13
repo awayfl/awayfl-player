@@ -1,5 +1,3 @@
-///<reference path='./debugDraw/nape-debug-draw.d.ts'/>
-
 declare module nape {
     export module callbacks {
         export class Callback {
@@ -1363,6 +1361,9 @@ declare module nape {
         }
     }
     export module util {
+         export class Debug {
+            public static version(): String;
+         }
     }
     export class Config {
         public static epsilon: number;

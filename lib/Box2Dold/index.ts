@@ -89,3 +89,24 @@ export { b2DestructionListener } from './Dynamics/b2DestructionListener';
 export { b2Island } from './Dynamics/b2Island';
 export { b2TimeStep } from './Dynamics/b2TimeStep';
 export { b2World } from './Dynamics/b2World';
+
+import { b2PrismaticJoint } from './Dynamics/Joints/b2PrismaticJoint';
+import { b2RevoluteJoint } from './Dynamics/Joints/b2RevoluteJoint';
+
+declare module './Dynamics/Joints/b2PrismaticJoint' {
+    namespace b2PrismaticJoint {
+        export function axIsType(x: any): boolean
+    }
+}
+b2PrismaticJoint.axIsType = function(x: any): boolean {
+    return x instanceof b2PrismaticJoint;
+}
+
+declare module './Dynamics/Joints/b2RevoluteJoint' {
+    namespace b2RevoluteJoint {
+        export function axIsType(x: any): boolean
+    }
+}
+b2RevoluteJoint.axIsType = function(x: any): boolean {
+    return x instanceof b2RevoluteJoint;
+}
