@@ -1,6 +1,6 @@
 import { BitmapImage2D, ImageUtils } from "@awayjs/stage";
 
-console.debug("AwayFL-Player - 0.2.51");
+console.debug("AwayFL-Player - 0.2.52");
 
 export {AVMPlayer} from "./lib/AVMPlayer";
 export {AVM1Player} from "./lib/AVM1Player";
