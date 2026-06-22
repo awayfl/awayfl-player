@@ -22,16 +22,16 @@ import { b2Math, b2Mat22 } from '../Math';
 export class b2Vec2 {
 	__fast__ = true;
 
-	constructor(x_: number = 0, y_: number = 0) {this.x = x_; this.y = y_;}
+	constructor(x_: number = 0, y_: number = 0) {this.x = Number(x_); this.y = Number(y_);}
 
 	public SetZero(): void { this.x = 0.0; this.y = 0.0; }
-	public Set(x_: number = 0, y_: number = 0): void {this.x = x_; this.y = y_;}
+	public Set(x_: number = 0, y_: number = 0): void {this.x = Number(x_); this.y = Number(y_);}
 	public SetV(v: b2Vec2): void {this.x = v.x; this.y = v.y;}
 
 	public Negative(): b2Vec2 { return new b2Vec2(-this.x, -this.y); }
 
 	public static Make(x_: number, y_: number): b2Vec2 {
-		return new b2Vec2(x_, y_);
+		return new b2Vec2(Number(x_), Number(y_));
 	}
 
 	public Copy(): b2Vec2 {
