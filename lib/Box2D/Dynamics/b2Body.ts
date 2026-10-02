@@ -344,6 +344,9 @@ export class b2Body {
 			return;
 		}
 		this.m_angularVelocity = omega;
+		if (this.IsAwake() == false) {
+			this.SetAwake(true);
+		}
 	}
 
 	/**
@@ -1180,6 +1183,42 @@ export class b2Body {
 		this.SynchronizeTransform();
 	}
 
+	public setStatic(): void
+	{
+		this.m_type = b2Body.b2_staticBody;
+		this.SetAwake(false);
+		this.quietenBody();
+	}
+	
+	public setDynamic(): void
+	{
+		this.m_type = b2Body.b2_dynamicBody;
+		this.SetAwake(true);
+		this.ResetMassData();
+	}
+	
+	public setSensor(param1: boolean): void
+	{
+		this.m_fixtureList.m_isSensor = param1;
+	}
+	
+	public quietenBody(): void
+	{
+		this.SetAngularVelocity(0);
+		this.SetLinearVelocity(new b2Vec2());
+		this.m_torque = 0;
+		this.m_force.SetZero();
+	}
+	
+	public isStatic(): boolean
+	{
+		if(this.GetType() == b2Body.b2_staticBody)
+		{
+			return true;
+		}
+		return false;
+	}
+
 	public m_flags: number /** uint */;
 	public m_type: number /** int */;
 
@@ -1221,6 +1260,10 @@ export class b2Body {
 	public m_sleepTime: number;
 
 	private m_userData: any;
+
+    public name: string = "";
+      
+    public bodyType: string = "";
 
 	// m_flags
 	//enum

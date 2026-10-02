@@ -387,6 +387,10 @@ public class b2Body
 			return;
 		}
 		m_angularVelocity = omega;
+		if (IsAwake() == false)
+		{
+			SetAwake(true);
+		}
 	}
 
 	/**
@@ -1297,6 +1301,42 @@ public class b2Body
 		SynchronizeTransform();
 	}
 
+	public function setStatic() : void
+	{
+		this.m_type = b2_staticBody;
+		this.SetAwake(false);
+		this.quietenBody();
+	}
+	
+	public function setDynamic() : void
+	{
+		this.m_type = b2_dynamicBody;
+		this.SetAwake(true);
+		this.ResetMassData();
+	}
+	
+	public function setSensor(param1:Boolean) : void
+	{
+		this.m_fixtureList.m_isSensor = param1;
+	}
+	
+	public function quietenBody() : void
+	{
+		this.SetAngularVelocity(0);
+		this.SetLinearVelocity(new b2Vec2());
+		this.m_torque = 0;
+		this.m_force.SetZero();
+	}
+	
+	public function isStatic() : Boolean
+	{
+		if(this.GetType() == b2_staticBody)
+		{
+		return true;
+		}
+		return false;
+	}
+
 	public var m_flags:uint;
 	public var m_type:int;
 	
@@ -1336,6 +1376,10 @@ public class b2Body
 	public var m_sleepTime:number;
 
 	private var m_userData:*;
+
+    public var name:String = "";
+      
+    public var bodyType:String = "";
 	
 	
 	// m_flags
