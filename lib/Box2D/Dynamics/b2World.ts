@@ -719,7 +719,7 @@ export class b2World {
 	 * Return true to continue to the next fixture.
 	 * @asonly
 	 */
-	public QueryShape(callback: Function, shape: b2Shape, transform: b2Transform = null): void {
+	public QueryShape(callback: Function | ASMethodClosure, shape: b2Shape, transform: b2Transform = null): void {
 		if (transform == null) {
 			transform = new b2Transform();
 			transform.SetIdentity();
@@ -727,8 +727,13 @@ export class b2World {
 		const broadPhase: IBroadPhase = this.m_contactManager.m_broadPhase;
 		function WorldQueryWrapper(proxy: any): boolean {
 			const fixture: b2Fixture = broadPhase.GetUserData(proxy) as b2Fixture;
-			if (b2Shape.TestOverlap(shape, transform, fixture.GetShape(), fixture.GetBody().GetTransform()))
-				return callback(fixture);
+			if (b2Shape.TestOverlap(shape, transform, fixture.GetShape(), fixture.GetBody().GetTransform())) {
+				if (typeof callback === 'function') {
+					return callback(fixture);
+				} else {
+					return callback.axApply(null, [fixture]);
+				}
+			}
 			return true;
 		}
 		const aabb: b2AABB = new b2AABB();
@@ -743,12 +748,17 @@ export class b2World {
 	 * Return true to continue to the next fixture.
 	 * @asonly
 	 */
-	public QueryPoint(callback: Function, p: b2Vec2): void {
+	public QueryPoint(callback: Function | ASMethodClosure, p: b2Vec2): void {
 		const broadPhase: IBroadPhase = this.m_contactManager.m_broadPhase;
 		function WorldQueryWrapper(proxy: any): boolean {
 			const fixture: b2Fixture = broadPhase.GetUserData(proxy) as b2Fixture;
-			if (fixture.TestPoint(p))
-				return callback(fixture);
+			if (fixture.TestPoint(p)) {
+				if (typeof callback === 'function') {
+					return callback(fixture);
+				} else {
+					return callback.axApply(null, [fixture]);
+				}
+			}
 			return true;
 		}
 		// Make a small box.
@@ -776,7 +786,7 @@ export class b2World {
 	 * @param point1 the ray starting point
 	 * @param point2 the ray ending point
 	 */
-	public RayCast(callback: Function, point1: b2Vec2, point2: b2Vec2): void {
+	public RayCast(callback: Function | ASMethodClosure, point1: b2Vec2, point2: b2Vec2): void {
 		const broadPhase: IBroadPhase = this.m_contactManager.m_broadPhase;
 		const output: b2RayCastOutput = new b2RayCastOutput;
 		function RayCastWrapper(input: b2RayCastInput, proxy: any): number {
@@ -788,7 +798,11 @@ export class b2World {
 				const point: b2Vec2 = new b2Vec2(
 					(1.0 - fraction) * point1.x + fraction * point2.x,
 					(1.0 - fraction) * point1.y + fraction * point2.y);
-				return callback(fixture, point, output.normal, fraction);
+				if (typeof callback === 'function') {
+					return callback(fixture, point, output.normal, fraction);
+				} else {
+					return callback.axApply(null, [fixture, point, output.normal, fraction]);
+				}
 			}
 			return input.maxFraction;
 		}
