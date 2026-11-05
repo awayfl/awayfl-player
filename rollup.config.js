@@ -41,6 +41,7 @@ export default [
 		},
 		plugins: [
 			typescript({
+				include: ['**/*.ts', '**/*.tsx'],
  				tsconfigOverride: {
 					compilerOptions: {
 						declaration: false,

@@ -31,7 +31,7 @@ nape.geom.Vec2.fromPoint = function(point:any, param2:Boolean = false) {
 nape.geom.GeomPoly = class _NewGeomPoly extends nape.geom.GeomPoly {
     constructor(v: any) {
         //@ts-ignore
-        v = v.value ? v.value: v;
+        v = v.value ? v.value: (Array.isArray(v._buffer) ? v._buffer : v);
         super(v);
     }
 }
