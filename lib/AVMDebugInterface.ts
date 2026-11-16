@@ -191,7 +191,7 @@ export class AVMDebug {
 		if (pool) {
 			//@ts-ignore
 			const partition = pool.getNode(node).partition;
-			const picker = PickGroup.getInstance().getBoundsPicker(partition);
+			const picker = PickGroup.getPool(view).getBoundsPicker(partition);
 
 			//@ts-ignore
 			box = picker.getBoxBounds(pool.getNode(this.player.root), true, true);
